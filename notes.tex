@@ -1,0 +1,255 @@
+\documentclass[12pt,letterpaper]{report}
+\usepackage[utf8x]{inputenc}
+\usepackage{ucs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Michael Kummer}
+\begin{document}
+
+Parseval Theorem
+
+Parseval Frames
+
+Frame Operator
+
+	Matrix whose rows are transposed vectors
+
+Moore-Penrose Pseudoinverse
+
+	$Q^TQx = Q^Ta$
+
+	$x = (Q^TQ)^{-1}Q^Ta = Q^\dagger a$
+
+$D = (Q^TQ)^{-1}Q^T$
+
+reproducing formula
+
+$\sum a_n d_n = \sum <x, \phi_n>d_n = x$
+
+\begin{enumerate}
+\item Statistical learning theory  - avoid overfitting
+\item Statistical estimation - Model selection
+\item Neural information processing - visual perception
+\end{enumerate}
+
+Error $||x - \hat{x}||^2 = \sum^\infty_{n=k}|<x, v_n>|^2$
+
+$|a_n - \hat{a_n}| = \{ 0 : n < k, a_n : n \geq k\}$
+
+$dctmtx(4)$
+
+projection pursuit algorithms
+
+
+\subsection*{9-19-2016}
+
+$min \sum |a_n|, Da = x$
+
+$d = 1, x \in \mathbb{R}$
+
+Start with a ball at the center, once it touches the hyperplane, that's the least squares solution.  With L1 norm, diamond.
+
+$v_n(i) = cos(ni\pi /N) = e^{-j*2\pi (n-1)(j-1)/d}$
+
+\subsection*{9-26-2016}
+
+Single pixel camera
+
+$y \in \mathbb{R}^m, x \in \mathbb{R}^m, \Phi \in \mathbb{R}^{m \times n}, m < n$
+
+$y = Ax + e$
+
+$A_{ij}$ represents variables that impact the outcome.
+
+A = design prediction matrix
+
+blood pressure, weight, height, age, gene expression levels, ...
+
+The output $y_i$ is the probability that patient i suffers from a certain disease
+
+m patients, n variables
+
+$y = f(t) + e$
+
+Error correction $[z]_{10}$ would like to transmit over a communication channel
+
+$v = B z$
+
+$v \rightarrow$ receive $v + x$, $||x||_0 < s$
+
+Checksum matrix A such that $AB=0$
+
+$y = Aw = A(v+x) = ABz + Ax = Ax$
+
+Solve $y = Ax$ subject to $||x||_0 < s$
+
+\subsection*{9-28-2016}
+$y = \Phi x, y \in \mathbb{R}^m, x \in \mathbb{R}^n, m < n$
+
+Learning for sparse solutions
+
+xray ct, mri, look at an image in an xray scanner (square), xray scanner has a linear accelerator that shoots beams of xrays through a biological material. As they travel through, they hit softer and denser points in the space.  Denser materials scatter more of the rays.  A particular measurement say $y_1$ is the inner product of the image we'd like to recover and a vector 1 along the ray and 0 elsewhere (basis images $\phi_1$.  As few measurements as possible while solving the linear system $y = \Phi x$. $y_1 = < \Box, f(\Box) >$ (fourier box of parallel diagonal lines).
+
+QM physicists went to applied Radar problems.  These techniques allow an increase in resolution beyond what was previously thought possible.
+
+When can we hope to recover x from y?  $x \in A \mathbb{R}^n, y \in B \mathbb{R}^m, \Phi : x -> y$  In general there are infinitely many points that produce y observations.  If $x_0$ is one of them, then we have $y = \Phi x_0, y = \Phi (x_0 + \alpha * v), v \in null(\Phi),  \alpha \in \mathbb{R}$, Now suppose x is... $T = \{ 3,5,8 \}$  $T = \{j : x_j \neq 0 \}$ support, If we knew T, $y = \Phi x = \Phi_T x_T$ (3,5,8 columns).  $m > s$ If $\Phi_T$ is full rank then $\Phi_T^t \Phi_T$ is invertible (it's minimum eigen value is larger than 0).  We can recover $x_T$ from y we can find x.
+
+We want $\lambda_{min} > const > 0$ for reliability reasons.  Stable recovery requires that all eigenvalues are close to 1.  In other words if we multiply $\Phi_T^t \Phi_T c \approx c$ this is preserving the length of the eigenvectors.  $(1 - s) ||c||_2^2 \leq ||\Phi_T c||_2^2 \leq (1 + \delta)||c||_2^2, 1 > \delta > 0$, $(1 - s) \leq \lambda_{max}(\Phi_T^t \Phi_T) < (1 + \delta)$.  Now if we don't know T: When will y be different for ALL x with $||x||_0 \leq s^2$? (We want a condition on $\Phi$) 
+
+If we have two s-sparse vectors $x_1, x_2, ||x_1||_0 \leq s, ||x_2||_0 \leq s, y = \Phi x_1 = \Phi x_2, \Phi x_1 - \Phi x_2 = 0 \rightarrow \Phi (x_1 - x_2) = 0, ||x_1 - x_2||_0 \leq ||x_1||_0 + ||x_2||_1$, $x' = x_1 - x_2, ||x'||_0 \leq 2s, \Phi x' = 0, \rightarrow ||\Phi x'||_2 = 0$,  This means that $\exists \Phi_T$ with $|T| = 2S$ that $\Phi_T$ is singular, $\lambda_{min}(\Phi_T^t \Phi_T) = 0$
+
+1) For two s sparse vectors to have the same image (y) a 2s sparse vector must be in $null(\Phi)$, $\exists x_1' ||x'||_0 \leq 2s, ||\Phi x'|| = 0$ 
+
+\subsection*{9-30-2016}
+
+Talk about the homework, 1st problem was ok, 2nd some people went too quickly to google.  I really wanted you to understand the geometry.  Everyone solved the first correctly which meant you understood it, but the second problem was to apply your understanding.  I strongly instruct you to look at the second problem in light of the first.  The concept of a vector being something very general should be something you feel comfortable with.  The second assignment you'll be dealing with nonlinear approximations.  If you haven't fully developed that understanding of vectors in the first place the second assignment won't be as meaningful.  Take another look at the 2nd problem.
+
+It's about time for you to be looking into projects.  I've recommended some papers to some who have asked, some of you haven't asked.  We'll have a proposal deadline in October and you'll pick a particular problem in some special topic of interest.  You'll prepare a presentation on that subject and you'll implement an algorithm or two on that topic and we'll see how that works.  You'll search terms like dictionary representations, sparse representations, etc.  Google is your friend here (not for solving your assignments).  Start looking to see what interests you.  There are a few posts on canvas that give you some directions.  Once you've done that please come talk to me.  I'll help you narrow down what you're looking for so you can get to a presentation.  You need to do some initial research first.  Spend time looking for time looking for problems that interest you.
+
+We have seen some results with spikes and fourier dictionary.  We're extending our understanding of linear algebra (LA) to see when we can solve an under determined linear system.  LA says you can't, when can you come to a conclusion that you can solve linear system with a sparse solution?  (Google sparse solutions to linear systems)
+
+$y = \Phi x, y \in \mathbb{R}^m, x \in \mathbb{R}^n, m < n$
+
+$x \in \mathbb{R}^n, \phi(x) = y \in \mathbb{R}^m$  (Mapping with sets and arrows)
+
+Q: When the preimage of y (among sparse vectors) is unique.  A: For two sparse vectors to have the same image, a 2s-sparse vector must be in $Null(\Phi), \Phi(x_1 - x_2) = 0, x' := (x_1 - x_2)$, 
+
+Every s-sparse vector has an image (y) which is unique (only come from x) if
+
+$0 < ||\Phi x' ||_2^2, \forall ||x'||_0 \leq 2s$
+
+For all 2s-sparse vectors then we can recover any s-sparse x from $y = \Phi x$ as x will be the unique solution to: $min_z||z||_0 Such that \Phi z = y$.
+
+Ex: $n = 100, m = 50,  y_m = A_{m \times n} x_n$ if only 5 of x are non zero, is there only 1 that gives this sparse solution?  Giving 50 measurements (y), where are those zeros at?  We're about to look at some proofs, but this part should be absolutely clear to everyone.  $|| \Phi x' ||_2^2 > 0 if ||x'|| \leq 10$
+
+Student: How do we come up with this matrix?  Teacher: That's a very good question, I hope to get to that.
+
+To make recovery (of x from y) stable we need this very important inequality (a key property of $\Phi$): $(1 - \delta) ||x'||_2^2 \leq ||\Phi x||_2^2 \leq (1 + \delta) ||x'||_2^2$ For ALL 2S-sparse vectors $x'$.  $0 < \delta < 1$, if $\delta = \frac{1}{2}: \frac{1}{2}||x'||_2^2 \leq ||\Phi x||_2^2 \leq \frac{3}{2}||x'||_2^2$
+
+If this property holds for a  matrix, we say $\Phi$ has the restricted isometry property (RIP) of size 2S and constant $\delta$. $\Phi$ 2S-RIP or 2S-RIP-$\delta$.
+
+$(1-\delta)||x||_2^2 < ||\Phi x||_2^2 < (1+\delta)||x||_2^2$... isometry talk, 3d vectors from 3 to 2, the length corresponds from 3d to 2d.  It's off by $\delta$.
+
+What matrices have this RIP property?  Here's where to invoke the gold coin problem.  We had 7 coins and wanted to know the fewest number of measurements (y) and we wanted to build a $\Phi$ and determine which coin was defective with the fewest number of measurements.  $m=3, n=7, y_m = \Phi_{m \times n} x_n$ We saw a solution for 3 measurements, s is 1 (one defective coin). How do we solve the gold coin problem in a more general setting?  Instead of sparsity 1 what if I give you sparsity s, how many measurements would you need? $m \approx s log(n/s), m > 2s$.  (See last lecture for explanation $\Phi_T^t \Phi_T)$
+
+Next class, we can't build these $\Phi$ matrices, we don't have a deterministic algorithm to give you $\Phi$.  Instead if we generate $\Phi_{ij} ~ N(0, 1/m)$ (from some normal distribution, randomness is our friend here).
+
+\subsection*{9-30-2016}
+The other day we learned about the Restricted Isometry Property (RIP). $(1 - \delta) ||x'||_2^2 \leq ||\Phi x||_2^2 \leq (1 + \delta) ||x'||_2^2$ for ALL 2s-sparse vectors $x' \in \mathbb{R}^n$.  Remember $y = \Phi x, x \in \mathbb{R}^n, y \in \mathbb{R}^m$.  Then we can say that we can recover any s-sparse x from y.  
+
+We are now after solving the gold coin problem in a more general setting.  Holy grail: How small can m be (at least 2s)? $\Phi_{ij} ~ \mathcal{N}(0, 1/m)$  Then $\Phi$ will have 2S-RIP with high probability of $m > const*S*log(n/s)$.  Gold Coin problem: $s=1, n=7, m=3 ~ S*log(n/s)$. To show this, we need to show $||\Phi x|| \approx ||x||$ for all 2S-Sparse vectors.  Tiny example (drawing a mapping from 3D to 2D): $n = 3, m = 2, \phi : x \in X \rightarrow y \in Y$, $\Phi_{ij} ~ \mathcal{N}(0, 1/m), []_{2 \times 3}$, length of $y = ||\Phi x||$
+
+1. Fix x: concentration of measure $||\Phi x||_2^2 \approx ||x||_2^2$ with extraordinarily high probability.
+
+2. For all 2S-sparse vectors (How many do we have?) $||\Phi x||_2^2 \approx ||x||_2^2$ holds with slightly smaller probability.
+
+Fix x, $y = \Phi x, y (rand), \Phi (rand), x (fix)$ then
+
+1. $E[||y||^2] = ||x||_2^2$
+
+2. $pr(| ||y||_2^2 - ||x||_2^2 | > \delta ||x||_2^2) \leq 2*e^{-(\frac{\delta^2}{2} -\frac{\delta^3}{3})m/2}$
+
+$y_i = \Sigma_{j=1}^n \Phi_{ij} x_j, x_j (fixed), \Phi_{ij} (i.i.d. Gaussian), y_i, 1 \leq i \leq m$ are i.i.d Gaussians.  $Var(y_i) = \Sigma_{j=1}^n Var(\Phi_{ij}) x_j^2 = \Sigma \frac{1}{m}x_j^2 = \frac{1}{m}||x||_2^2. y_i ~ \mathcal{N}(1, \frac{1}{m}||x||_2^2$.  $E||y||^2 = \Sigma_{i=1}^m E|y_i|^2 = \Sigma \frac{1}{m}||x||^2$  Remember Markov Inequality: $Pr(Y > \alpha) \leq \frac{E(Y)}{\alpha}$ (positive Y).  $E(Y) = \int_0^\infty y *f_Y(y)dy \geq \int_\alpha^\infty y *f_Y(y)dy \geq \alpha \int_\alpha^\infty f_Y(y)dy = \alpha Pr(Y>\alpha)$
+
+Let $Y = ||y||_2^2$ and assume $||x||_2^2 = 1$, then  $Pr(Y > 1 + \delta) = Pr(\lambda Y > \lambda(1+\delta)) = Pr(e^{\lambda Y} > e^{\lambda(1 + \delta)})$, Invoke Markov: $pr(Y > 1 + \delta) \leq \frac{E[e^{\lambda Y}]}{e^{\lambda(1+\delta)}}$
+
+$E[e^{\lambda Y}] = E[e^{\lambda \Sigma_{i=1}^m y_i^2}] = E[e^{\lambda y_1^2}e^{\lambda y_2^2}...e^{\lambda y_m^2}]$ $y_i$'s are i.i.d Gaussians.
+
+$E[e^{\lambda Y}] = (E[e^{\lambda y_1^2}])^m, y_1 ~ \mathcal{N}(0, 1/m)$ (pdf)
+
+$E[e^{\lambda y_1^2}] = \int e^{\lambda y_1^2} \sqrt{\frac{m}{2 \pi}} e^{-y_1^2*m/2} dy_1 = \int \sqrt{\frac{m}{2 \pi}} e^{-y_1^2(m-2\lambda)/2} dy_1$
+
+$=\sqrt{\frac{m}{m - 2\lambda}} \int \sqrt{\frac{m - 2\lambda}{2 \pi}} e^{-y_1^2(m-2\lambda)/2} dy_2$
+
+$=\sqrt{\frac{m}{m - 2\lambda}} = (1 - 2 \lambda/m)^{1/2} \qquad$ if $\lambda < \frac{m}{2}$
+
+$ E[e^{\lambda y_1^2}] = (1 - 2 \frac{\lambda}{m})^{-1/2} \rightarrow E[e^{\lambda Y}] = (1 - 2 \frac{\lambda}{m})^{-m/2}$
+
+$Pr(Y > 1 + \delta) \leq \frac{(1 - 2 \lambda / m)^{-m/2}}{e^{\lambda(1+\delta)}}$
+
+$=(\frac{e^{-2 \lambda / m(1+\delta)}}{(1 - 2 \lambda / m)})^{m/2} \qquad \forall \lambda < m/2$
+
+
+Choose $\lambda = \frac{m \delta}{2(1 + \delta)}$
+
+$pr(Y > 1 + \delta) \leq (\frac{e^{-\delta}}{1 - \frac{\delta}{1+\delta}})^{m/2}$
+
+$\log(1 + \delta) \approx \delta - \frac{\delta^2}{2} + \frac{\delta^3}{3} \rightarrow 1 + \delta < e^{\delta - \frac{\delta^2}{2} + \frac{\delta^3}{3}}$
+
+
+$Pr(||y||_2^2 \geq (1 + \delta) ||x_2^2) < e^{-(\frac{\delta^2}{2} + \frac{\delta^3}{3})m/2}$
+
+$Pr(||y||_2^2 < (1 - \delta) ||x_2^2) < e^{-(\frac{\delta^2}{2} + \frac{\delta^3}{3})m/2}$
+
+$* ||\Phi x||_2^2 \approx ||x||_2^2, (y = \Phi x)$
+
+Example:
+
+Say $\delta = 1/2, m = 1000. Pr(\frac{1}{2}||x||_2^2 \leq ||\Phi x||_2^2 \leq \frac{3}{2}||x||_2^2 \geq 1 - 2*e^{-(1/4 -1/8)1000/2} \approx 1 - 5.4 * 10^{-14}$
+
+
+
+\subsection*{10-5-2016}
+
+$\Phi : \mathbb{R}^n \rightarrow \mathbb{R}^m, m < n$
+
+$y = \Phi x, x \in \mathbb{R}^n, y \in \mathbb{R}^m$
+
+x is s-sparse, when can we recover it from y?
+
+2S-RIP
+
+$(1-\delta)||x||_2^2 \leq ||\Phi x||_2^2 \leq (1+\delta)||x||_2^2$
+for all 2s-sparse $x'$
+
+The quantity $||\Phi x||_2^2$ is called concentration of measure.
+
+$\Phi_{ij} ~ \mathcal{N}(0, 1/m)$
+
+satisfaction of RIP when $m > const * S * log(n/s)$ with high probability
+
+If we fix x then $(1-\delta)||x||_2^2 \leq ||\Phi x||_2^2 \leq (1+\delta)||x||_2^2$ holds with a probability  $p \geq  1 - 2 * e^{-(\frac{\delta^2}{2} + \frac{\delta^3}{3})m/2} = 1 - 2 e^{-C_0(\delta)m}$
+
+Example:
+
+Say $\delta = 1/2, m = 1000. Pr(\frac{1}{2}||x||_2^2 \leq ||\Phi x||_2^2 \leq \frac{3}{2}||x||_2^2 \geq 1 - 2*e^{-(1/4 -1/8)1000/2} \approx 1 - 5.4 * 10^{-14}$
+$m=10,000, P > 1 - 4*10^{-136}$
+
+
+Johnson-Lindenstrauss Lemma : Let $0 < \delta < 1$ be given.  For every set of points $Q_1(|Q| of points) \in \mathbb{R}^n$ if $m=O(\frac{log(|Q|/\epsilon}{\delta^2})$ then a randomly drawn $\Phi$ will satisfy this distortion: $(1-\delta)||u-v||_2^2 \leq ||\Phi u - \Phi v||_2^2 \leq (1+\delta)||u-v||_2^2, \forall$ pairs $u,v \in Q$ holds with probability of at least $1 - \epsilon$.
+
+Note: Approximate query processing in databases.  You might not care so much if you didn't get the exact answer and instead got some approximate error.  Data streaming applications that use this are called sketching/streaming.  These are called JL-friendly distributions, examples:
+
+Gaussian $\Phi_{ij} ~ \mathcal{N}(0, 1/m)$
+
+Bernoulli $\Phi_{ij} = \frac{1}{\sqrt{m}}, -\frac{1}{\sqrt{m}}$ each with probability 1/2
+
+Database friendly $\Phi_{ij} = \sqrt{\frac{3}{m}}, 0, -\sqrt{\frac{3}{m}}$ with probabilities 1/6, 2/3, 1/6 respectively.
+
+Fast JL transform: $\Phi = PHD$, P: Sparse Gaussian, H: Fast Hadamard Transform, D: Random modulation matrix
+
+We now show that CI implies 2S-RIP for $m~s * log(n/s)$.
+
+Baraniuk Wakin DeVore Davenport (A Simple Proof of the Restricted Isometry Property for Random Matrices) 
+%http://yima.csl.illinois.edu/psfile/ECE598-08/JL_RIP.pdf
+
+Idea:  Fix T (support $x_1 |T| \leq 2S$) and see the probability of $||\Phi x|| \approx ||x||$ is very high.  Then count how many sets T exist to derive the worse case probability that RIP fails.
+
+Lemma: $\Phi : \mathbb{R}^n \rightarrow \mathbb{R}^m$ be a random matrix with CI.  Let T be fixed of size $|T| \leq 2S < m, 0 < \delta < 1$ then we have (intentionally not squared) $(1-\delta)||x||_2 \leq ||\Phi x||_2 \leq (1+\delta)||x||_2 \forall x \in B_T$ (support on T, $||x|| =1$) with $p >  1 - 2(\frac{12}{\delta})^2s e^{-C_0(\delta/2)m}$
+
+$B_T$ is a ball in 2S dimensional space
+
+fill the sphere with balls of radius $\delta$ ex: $\delta = 0.2$ (covering number) $\mathbb{R}^d, \delta/4 \rightarrow (\frac{3}{\delta})^d$
+
+
+
+
+
+
+
+
+
+
+\end{document}
