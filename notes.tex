@@ -243,13 +243,60 @@ $B_T$ is a ball in 2S dimensional space
 
 fill the sphere with balls of radius $\delta$ ex: $\delta = 0.2$ (covering number) $\mathbb{R}^d, \delta/4 \rightarrow (\frac{3}{\delta})^d$
 
+\subsection*{10-10-2016}
+
+$(1-\delta)||x||_2^2 \leq ||\Phi x||_2^2 \leq (1+\delta)||x||_2^2$ for all 2s-sparse $x$
+
+Gaussian are 2S-RIP-$\delta$ with $m \geq c*S*log(n/s)$ (c is some constant)
+
+Concentration Inequalities (CI): Fixed x, $pr(| ||\Phi x||^2 - ||x||^2| > \delta) < 2 e^{-C_0(\delta)m}$
+
+Lemma: Let T be a fixed set $|T| \leq 2S < m$ and $0 < \delta < 1$
+
+$(1-\delta)||x|| \leq ||\Phi x|| \leq (1+\delta)||x||, \forall x \in B_T$ with probability $\leq 1 - 2(\frac{12}{8})^{2S}e^{-C_0(\delta/2)m}$, $||x||_2^2 = 1$ x supported on T.
+
+Proof: $B_T$ is a ball in 2S-dim space.  Choose a finite set Q that covers $B_T$ with radius $\delta/4$.  All $x \in B_T$ we have $min_{q \in Q} ||x - q|| \leq \delta/4$
+
+(From geometry: a cover needs $\frac{12}{\delta}^{2S} = |Q|$ points)
+
+Concentration Inequality (CI) applied on each $q \in Q$ with $\delta/2$
+
+$(1-\delta/2)||q||_2^2 \leq ||\Phi q||_2^2 \leq (1+\delta/2)||q||_2^2$, fails with probability $p < 2 e^{-C_0(\delta/2)m}$
+
+Union Bound: If $A_1, A_2, ..., A_k$ are events $Pr(A_1 \cup ... \cup A_k) \leq \Sigma_{i=1}^k Pr(A_i)$
+
+$A_i$ is $q_i$ failing the CI.  This means $(1-\delta/2)||q||_2^2 \leq ||\Phi q||_2^2 \leq (1+\delta/2)||q||_2^2$ holds for all $q \in Q$ with probability $ p > 1 - 2(\frac{12}{8})^{2S}e^{-C_0(\delta/2)m}$, $(1-\delta/2)||q|| \leq ||\Phi q|| \leq (1+\delta/2)||q||$ holds with the same probability.
+
+Now define $A > ?$ be smallest number such that $||\Phi x|| \leq (1+A)||x||, \forall x \in B_T$, we want to show $A \leq \delta$ for any $x \in B_T$. pick $q \in Q$ such that $||x - q|| \leq \delta/4$, $||\Phi x|| = ||\Phi (q + x - q)|| \leq ||\Phi q|| + ||\Phi(x-q)|| \leq (1 + \delta/2) + (1 + A)||x-q|| \leq (1 + \delta/2) + (1+A) \delta/4 \leq ((1 + \delta/2) + (1+A) \delta/4)||x||$
+
+$||\Phi x|| \leq (1 + \delta/2 + \delta/4 + A \delta/4)||x||$
+
+$||\Phi x|| \leq (1 + A)||x||$
 
 
+$1+A \leq 1 + \frac{3}{4} \delta + \frac{1}{4} \delta A$
+
+$(1 - \frac{1}{4} \delta) A \leq \frac{3}{4} \delta $
+
+$A \leq \frac{3\delta}{(4-\delta)} \leq \delta$
 
 
+Show that for ALL 2S-sparse x $||\Phi x|| \approx ||x||$ with high probability.
+
+Theorem: $\Phi : \mathbb{R}^n \rightarrow \mathbb{R}^m$ satisfying CI there exist constants $C_1, C_2, > 0$ depending on $\delta$ (only) such that RIP holds for desired $\delta$, when $m > C_1(\delta) S * log(n/s)$ with probability $p > 1 - 2e^{-C_0(\delta/2)m}$
+
+Proof: We know for each $T(|T| \leq 2S)$ that $\Phi$ will fail with probability $p < 2(\frac{12}{8})^{2S}e^{-C_0(\delta/2)m}$.  There are ${n \choose 2S}$ sets of T exist.
+
+(Taylor series note: $e^{2S} = \Sigma_{k=0}^\infty \frac{(2S)^k}{k!} > \frac{(2S)^{2S}}{(2S)!} \rightarrow \frac{1}{(2S)!} < \frac{e^{2S}}{(2S)^{2S}}$)
+
+${n \choose 2S} = \frac{n!}{(2S)!(n-2S)!} = \frac{(n-2S+1)(n-2S+2)...n}{(2S)!} \leq \frac{n^{2S}}{(2S)!} < (\frac{n e}{2S})^{2S}$ 
 
 
+Applying the union bound RIP will fail with probability $p \leq 2(\frac{en}{2S})^{2S}(\frac{12}{\delta})^{2S}e^{-C_0(\delta/2)m} = 2 exp(-C_0(\delta/2)m + 2S*log(\frac{2ne}{\delta 2 S}))$.  If you $m > C_1(\delta)s*log(n/s)$ then RIP holds with probability $p > 1 - 2 e^{-C_0(\delta)m}$ for some $C_2(\delta) \leq C_0(\delta/2) - \frac{1}{C_1(\delta)}( 1 + \frac{log(\frac{6ne}{\delta})}{log(n/s)}) \geq C_0(\delta/2) - \frac{2}{C_1(\delta)}$ when $n > \frac{6eS}{\delta}$
 
+An $m \times n$ Gaussian matrix $\Phi$ obeys 2S-RIP-$\delta$ for $m \geq c * S * log(n/s)$ 
+
+$\Rightarrow$ All s-sparse vectors can be recovered for $~c*S*log(n/s)$ measurements.
 
 
 \end{document}
