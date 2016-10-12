@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{hyperref}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Michael Kummer}
 \begin{document}
@@ -233,7 +234,7 @@ Fast JL transform: $\Phi = PHD$, P: Sparse Gaussian, H: Fast Hadamard Transform,
 We now show that CI implies 2S-RIP for $m~s * log(n/s)$.
 
 Baraniuk Wakin DeVore Davenport (A Simple Proof of the Restricted Isometry Property for Random Matrices) 
-%http://yima.csl.illinois.edu/psfile/ECE598-08/JL_RIP.pdf
+\url{http://yima.csl.illinois.edu/psfile/ECE598-08/JL_RIP.pdf}
 
 Idea:  Fix T (support $x_1 |T| \leq 2S$) and see the probability of $||\Phi x|| \approx ||x||$ is very high.  Then count how many sets T exist to derive the worse case probability that RIP fails.
 
@@ -297,6 +298,63 @@ Applying the union bound RIP will fail with probability $p \leq 2(\frac{en}{2S})
 An $m \times n$ Gaussian matrix $\Phi$ obeys 2S-RIP-$\delta$ for $m \geq c * S * log(n/s)$ 
 
 $\Rightarrow$ All s-sparse vectors can be recovered for $~c*S*log(n/s)$ measurements.
+
+\subsection*{10-12-2016}
+
+Orthogonal Matching Pursuit (OMP):
+
+$x_{k+1} = x_k + <R_k, u_k> u_k / ||u_k||^2$
+
+$R_{k+1} = R_l - <R_k, u_k> u_k / ||u_k||^2$
+
+$[x]_N = D[a]_{2N}$
+
+$||x - x_k^*|| \leq \frac{C^2}{2\beta -1}k^{-2\beta+1}$
+
+$|a_1^*| \geq ... \geq |a_k^*|$
+
+
+If $\Phi$ obeys a 2S-RIP-$\delta$
+
+-Every s sparse x has an image y for which $\alpha$ is the unique pre-image
+
+-Given y, one can recover x b solving $min ||x||_0$ such that $\Phi x = y$, NP-Hard
+
+If we relax $||x||_0$ to the next norm that we can optimize efficiently: $||x||_1$
+
+$min ||x||_1$ such that $\Phi x = y$ (Linear Programming)
+
+Can we still recover the s-sparse x from this program?
+
+(Candes, Romberg, and Tao) 
+
+\url{http://statweb.stanford.edu/~candes/papers/StableRecovery.pdf} 
+
+\url{http://statweb.stanford.edu/~candes/papers/DecodingLP.pdf}
+
+Let $x_0$ be a vector in $\mathbb{R}^n$ supported on $T_0$, of $|T_0| \leq S$ 
+
+We observe $ y = \Phi x_0$ and are interested in conditions under which $x_0$ is the EXACT solution to $min ||x||_1$ such that $\Phi x = y$ (P1)
+
+Let $x^*$ be the solution to P1, further more h denote the error in recovery: $h = x^* - x_0$
+
+The error must satisfy two conditions:
+
+1) $\Phi h = 0, h \in Null(\Phi)$, $\Phi x^* = y = \Phi x_0 \rightarrow \Phi (x^* - x_0) = 0$
+
+2) $||x^*||_1 \leq ||x_0||_1 \rightarrow ||x_0 + h||_1 \leq ||x_0||_1$, Both are feasible, and $x^*$ is by definition the feasible point with smallest L1 norm.  There's only 1 point because it's convex.
+
+Notation $h_T$ to be the restriction of h to the set T.
+
+$h_T[i] = \{ h[i] (i \in T), 0 (i \not\in T)$
+
+$||x_0 + h||_1 = \Sigma_{i \in T_0} |x_0[i] + h[i]| + \Sigma_{i \in T_0^c}|h[i]|$
+
+triangle $\geq \Sigma_{i \in T_0} |x_0[i]| - |h[i]| + \Sigma_{i \in T_0^c}|h[i]|$
+
+$= ||x_0||_1 - ||h_{T_0}||_1 + ||h_{T_0^C}||_1$
+
+(2) tells us $||h_{T_0^C}||_1 \leq ||h_{T_0}||_1$
 
 
 \end{document}
