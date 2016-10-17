@@ -46,7 +46,7 @@ projection pursuit algorithms
 
 \subsection*{9-19-2016}
 
-$min \sum |a_n|, Da = x$
+$\min \sum |a_n|, Da = x$
 
 $d = 1, x \in \mathbb{R}$
 
@@ -97,11 +97,11 @@ QM physicists went to applied Radar problems.  These techniques allow an increas
 
 When can we hope to recover x from y?  $x \in A \mathbb{R}^n, y \in B \mathbb{R}^m, \Phi : x -> y$  In general there are infinitely many points that produce y observations.  If $x_0$ is one of them, then we have $y = \Phi x_0, y = \Phi (x_0 + \alpha * v), v \in null(\Phi),  \alpha \in \mathbb{R}$, Now suppose x is... $T = \{ 3,5,8 \}$  $T = \{j : x_j \neq 0 \}$ support, If we knew T, $y = \Phi x = \Phi_T x_T$ (3,5,8 columns).  $m > s$ If $\Phi_T$ is full rank then $\Phi_T^t \Phi_T$ is invertible (it's minimum eigen value is larger than 0).  We can recover $x_T$ from y we can find x.
 
-We want $\lambda_{min} > const > 0$ for reliability reasons.  Stable recovery requires that all eigenvalues are close to 1.  In other words if we multiply $\Phi_T^t \Phi_T c \approx c$ this is preserving the length of the eigenvectors.  $(1 - s) ||c||_2^2 \leq ||\Phi_T c||_2^2 \leq (1 + \delta)||c||_2^2, 1 > \delta > 0$, $(1 - s) \leq \lambda_{max}(\Phi_T^t \Phi_T) < (1 + \delta)$.  Now if we don't know T: When will y be different for ALL x with $||x||_0 \leq s^2$? (We want a condition on $\Phi$) 
+We want $\lambda_{min} > const > 0$ for reliability reasons.  Stable recovery requires that all eigenvalues are close to 1.  In other words if we multiply $\Phi_T^t \Phi_T c \approx c$ this is preserving the length of the eigenvectors.  $(1 - s) ||c||_2^2 \leq ||\Phi_T c||_2^2 \leq (1 + \delta)||c||_2^2, 1 > \delta > 0$, $(1 - s) \leq \lambda_{max}(\Phi_T^t \Phi_T) < (1 + \delta)$.  Now if we don't know T: When will y be different for ALL x with $||x||_0 \leq s^2$? (We want a condition on $\Phi$)
 
 If we have two s-sparse vectors $x_1, x_2, ||x_1||_0 \leq s, ||x_2||_0 \leq s, y = \Phi x_1 = \Phi x_2, \Phi x_1 - \Phi x_2 = 0 \rightarrow \Phi (x_1 - x_2) = 0, ||x_1 - x_2||_0 \leq ||x_1||_0 + ||x_2||_1$, $x' = x_1 - x_2, ||x'||_0 \leq 2s, \Phi x' = 0, \rightarrow ||\Phi x'||_2 = 0$,  This means that $\exists \Phi_T$ with $|T| = 2S$ that $\Phi_T$ is singular, $\lambda_{min}(\Phi_T^t \Phi_T) = 0$
 
-1) For two s sparse vectors to have the same image (y) a 2s sparse vector must be in $null(\Phi)$, $\exists x_1' ||x'||_0 \leq 2s, ||\Phi x'|| = 0$ 
+1) For two s sparse vectors to have the same image (y) a 2s sparse vector must be in $null(\Phi)$, $\exists x_1' ||x'||_0 \leq 2s, ||\Phi x'|| = 0$
 
 \subsection*{9-30-2016}
 
@@ -115,13 +115,13 @@ $y = \Phi x, y \in \mathbb{R}^m, x \in \mathbb{R}^n, m < n$
 
 $x \in \mathbb{R}^n, \phi(x) = y \in \mathbb{R}^m$  (Mapping with sets and arrows)
 
-Q: When the preimage of y (among sparse vectors) is unique.  A: For two sparse vectors to have the same image, a 2s-sparse vector must be in $Null(\Phi), \Phi(x_1 - x_2) = 0, x' := (x_1 - x_2)$, 
+Q: When the preimage of y (among sparse vectors) is unique.  A: For two sparse vectors to have the same image, a 2s-sparse vector must be in $Null(\Phi), \Phi(x_1 - x_2) = 0, x' := (x_1 - x_2)$,
 
 Every s-sparse vector has an image (y) which is unique (only come from x) if
 
 $0 < ||\Phi x' ||_2^2, \forall ||x'||_0 \leq 2s$
 
-For all 2s-sparse vectors then we can recover any s-sparse x from $y = \Phi x$ as x will be the unique solution to: $min_z||z||_0 Such that \Phi z = y$.
+For all 2s-sparse vectors then we can recover any s-sparse x from $y = \Phi x$ as x will be the unique solution to: $\min_z||z||_0 Such that \Phi z = y$.
 
 Ex: $n = 100, m = 50,  y_m = A_{m \times n} x_n$ if only 5 of x are non zero, is there only 1 that gives this sparse solution?  Giving 50 measurements (y), where are those zeros at?  We're about to look at some proofs, but this part should be absolutely clear to everyone.  $|| \Phi x' ||_2^2 > 0 if ||x'|| \leq 10$
 
@@ -138,7 +138,7 @@ What matrices have this RIP property?  Here's where to invoke the gold coin prob
 Next class, we can't build these $\Phi$ matrices, we don't have a deterministic algorithm to give you $\Phi$.  Instead if we generate $\Phi_{ij} ~ N(0, 1/m)$ (from some normal distribution, randomness is our friend here).
 
 \subsection*{9-30-2016}
-The other day we learned about the Restricted Isometry Property (RIP). $(1 - \delta) ||x'||_2^2 \leq ||\Phi x||_2^2 \leq (1 + \delta) ||x'||_2^2$ for ALL 2s-sparse vectors $x' \in \mathbb{R}^n$.  Remember $y = \Phi x, x \in \mathbb{R}^n, y \in \mathbb{R}^m$.  Then we can say that we can recover any s-sparse x from y.  
+The other day we learned about the Restricted Isometry Property (RIP). $(1 - \delta) ||x'||_2^2 \leq ||\Phi x||_2^2 \leq (1 + \delta) ||x'||_2^2$ for ALL 2s-sparse vectors $x' \in \mathbb{R}^n$.  Remember $y = \Phi x, x \in \mathbb{R}^n, y \in \mathbb{R}^m$.  Then we can say that we can recover any s-sparse x from y.
 
 We are now after solving the gold coin problem in a more general setting.  Holy grail: How small can m be (at least 2s)? $\Phi_{ij} ~ \mathcal{N}(0, 1/m)$  Then $\Phi$ will have 2S-RIP with high probability of $m > const*S*log(n/s)$.  Gold Coin problem: $s=1, n=7, m=3 ~ S*log(n/s)$. To show this, we need to show $||\Phi x|| \approx ||x||$ for all 2S-Sparse vectors.  Tiny example (drawing a mapping from 3D to 2D): $n = 3, m = 2, \phi : x \in X \rightarrow y \in Y$, $\Phi_{ij} ~ \mathcal{N}(0, 1/m), []_{2 \times 3}$, length of $y = ||\Phi x||$
 
@@ -233,7 +233,7 @@ Fast JL transform: $\Phi = PHD$, P: Sparse Gaussian, H: Fast Hadamard Transform,
 
 We now show that CI implies 2S-RIP for $m~s * log(n/s)$.
 
-Baraniuk Wakin DeVore Davenport (A Simple Proof of the Restricted Isometry Property for Random Matrices) 
+Baraniuk Wakin DeVore Davenport (A Simple Proof of the Restricted Isometry Property for Random Matrices)
 \url{http://yima.csl.illinois.edu/psfile/ECE598-08/JL_RIP.pdf}
 
 Idea:  Fix T (support $x_1 |T| \leq 2S$) and see the probability of $||\Phi x|| \approx ||x||$ is very high.  Then count how many sets T exist to derive the worse case probability that RIP fails.
@@ -256,7 +256,7 @@ Lemma: Let T be a fixed set $|T| \leq 2S < m$ and $0 < \delta < 1$
 
 $(1-\delta)||x|| \leq ||\Phi x|| \leq (1+\delta)||x||, \forall x \in B_T$ with probability $\leq 1 - 2(\frac{12}{8})^{2S}e^{-C_0(\delta/2)m}$, $||x||_2^2 = 1$ x supported on T.
 
-Proof: $B_T$ is a ball in 2S-dim space.  Choose a finite set Q that covers $B_T$ with radius $\delta/4$.  All $x \in B_T$ we have $min_{q \in Q} ||x - q|| \leq \delta/4$
+Proof: $B_T$ is a ball in 2S-dim space.  Choose a finite set Q that covers $B_T$ with radius $\delta/4$.  All $x \in B_T$ we have $\min_{q \in Q} ||x - q|| \leq \delta/4$
 
 (From geometry: a cover needs $\frac{12}{\delta}^{2S} = |Q|$ points)
 
@@ -290,12 +290,12 @@ Proof: We know for each $T(|T| \leq 2S)$ that $\Phi$ will fail with probability 
 
 (Taylor series note: $e^{2S} = \Sigma_{k=0}^\infty \frac{(2S)^k}{k!} > \frac{(2S)^{2S}}{(2S)!} \rightarrow \frac{1}{(2S)!} < \frac{e^{2S}}{(2S)^{2S}}$)
 
-${n \choose 2S} = \frac{n!}{(2S)!(n-2S)!} = \frac{(n-2S+1)(n-2S+2)...n}{(2S)!} \leq \frac{n^{2S}}{(2S)!} < (\frac{n e}{2S})^{2S}$ 
+${n \choose 2S} = \frac{n!}{(2S)!(n-2S)!} = \frac{(n-2S+1)(n-2S+2)...n}{(2S)!} \leq \frac{n^{2S}}{(2S)!} < (\frac{n e}{2S})^{2S}$
 
 
 Applying the union bound RIP will fail with probability $p \leq 2(\frac{en}{2S})^{2S}(\frac{12}{\delta})^{2S}e^{-C_0(\delta/2)m} = 2 exp(-C_0(\delta/2)m + 2S*log(\frac{2ne}{\delta 2 S}))$.  If you $m > C_1(\delta)s*log(n/s)$ then RIP holds with probability $p > 1 - 2 e^{-C_0(\delta)m}$ for some $C_2(\delta) \leq C_0(\delta/2) - \frac{1}{C_1(\delta)}( 1 + \frac{log(\frac{6ne}{\delta})}{log(n/s)}) \geq C_0(\delta/2) - \frac{2}{C_1(\delta)}$ when $n > \frac{6eS}{\delta}$
 
-An $m \times n$ Gaussian matrix $\Phi$ obeys 2S-RIP-$\delta$ for $m \geq c * S * log(n/s)$ 
+An $m \times n$ Gaussian matrix $\Phi$ obeys 2S-RIP-$\delta$ for $m \geq c * S * log(n/s)$
 
 $\Rightarrow$ All s-sparse vectors can be recovered for $~c*S*log(n/s)$ measurements.
 
@@ -318,23 +318,23 @@ If $\Phi$ obeys a 2S-RIP-$\delta$
 
 -Every s sparse x has an image y for which $\alpha$ is the unique pre-image
 
--Given y, one can recover x b solving $min ||x||_0$ such that $\Phi x = y$, NP-Hard
+-Given y, one can recover x b solving $\min ||x||_0$ such that $\Phi x = y$, NP-Hard
 
 If we relax $||x||_0$ to the next norm that we can optimize efficiently: $||x||_1$
 
-$min ||x||_1$ such that $\Phi x = y$ (Linear Programming)
+$\min ||x||_1$ such that $\Phi x = y$ (Linear Programming)
 
 Can we still recover the s-sparse x from this program?
 
-(Candes, Romberg, and Tao) 
+(Candes, Romberg, and Tao)
 
-\url{http://statweb.stanford.edu/~candes/papers/StableRecovery.pdf} 
+\url{http://statweb.stanford.edu/~candes/papers/StableRecovery.pdf}
 
 \url{http://statweb.stanford.edu/~candes/papers/DecodingLP.pdf}
 
-Let $x_0$ be a vector in $\mathbb{R}^n$ supported on $T_0$, of $|T_0| \leq S$ 
+Let $x_0$ be a vector in $\mathbb{R}^n$ supported on $T_0$, of $|T_0| \leq S$
 
-We observe $ y = \Phi x_0$ and are interested in conditions under which $x_0$ is the EXACT solution to $min ||x||_1$ such that $\Phi x = y$ (P1)
+We observe $ y = \Phi x_0$ and are interested in conditions under which $x_0$ is the EXACT solution to $\min ||x||_1$ such that $\Phi x = y$ (P1)
 
 Let $x^*$ be the solution to P1, further more h denote the error in recovery: $h = x^* - x_0$
 
@@ -355,6 +355,96 @@ triangle $\geq \Sigma_{i \in T_0} |x_0[i]| - |h[i]| + \Sigma_{i \in T_0^c}|h[i]|
 $= ||x_0||_1 - ||h_{T_0}||_1 + ||h_{T_0^C}||_1$
 
 (2) tells us $||h_{T_0^C}||_1 \leq ||h_{T_0}||_1$
+
+
+\subsection*{10-5-2016}
+
+When we can solve $y = \Phi x$ for sparse solutions.  It's a requirement on $\Phi$
+
+2S-RIP-$\delta$
+
+$(1-\delta_S)||x||_2^2 \leq ||\Phi x||_2^2 \leq (1+\delta_S)||x||_2^2$ for all 2s-sparse $x'$.
+
+$0 < \delta_S < 1 \rightarrow$ Every S-sparse vector can be recovered from y.
+
+
+$(P_0) min_x ||x||_0$
+
+$(P_1) min_x ||x||_1$
+
+Candes, Romberg \& Tau
+
+When $x^*$ happens to solve $(P_0)$
+
+$h = x^* - x_0 \leftarrow$ exact, recovery $\rightarrow h = \vec{0}$, $x_0$ is a sparse vector
+
+$x_0$ is a field s sparse vector $y = \Phi x_0$
+
+Since both $x_0$ \& $x^*$ satisfy $\Phi x = y$
+
+\begin{itemize}
+\item $\Phi h = 0, h \in Null(\Phi)$
+\item $||x^*||_1 < ||x_0||_1$
+\item $||x_0 + h||_1 < ||x_0||_1$
+\end{itemize}
+
+$h_T[i] = \{ h[i] (i \in T), 0 (i \not\in T)$
+
+
+$T_0 = \{2,4\}$
+
+$T_0^C = \{1,3,5,6\}$
+
+$x_0 = [0 3 0 -1 0 0]$
+
+$h = [- + - + - -]$
+
+$x^* = [ ]$
+
+$x_0 + h = x^*$
+
+$h_{T_0} = [0 ? 0 ? 0 0]$
+
+$h_{T^C} = [? 0 ? 0 ? ?]$
+
+$h_{T_0} + h_{T_0^C} = h$
+
+Derived the following from optimality: $||h_{T_0}||_1 > ||h_{T_0^C}||_1$
+
+Show if $\Phi$ has RIP with particular $\delta$'s then
+
+$\Phi h = 0 \Rightarrow ||h_{T_0}||_1 \leq \rho ||h_{T_0^C}||_1$, $|T_0| \leq S$, $\rho < 1$
+
+
+Lemma: Let $\Phi : \mathbb{R}^n \rightarrow \mathbb{R}^m$ that obeys 3S-RIP $(\exists 0 < \delta_{3S} < 1)$
+
+If $\delta_{2S} + 2 \delta_{3S} < 1$, then
+
+$\forall h \in Null(\Phi) \rightarrow ||h_{T_0}||_1 < \rho ||h_{T_0^C}||_1$
+
+For every $T_0$ with $|T_0| \leq S, \rho = \frac{1}{2} \frac{1 + \delta_{2S}}{1 -\delta_{3S}} < 1$
+
+RIP makes use of $l_2$ norm of vectors
+
+\begin{itemize}
+\item Facts from LA: $\forall x \in \mathbb{R}^n, ||x||_1 \geq ||x||_2 \geq ||x||_\infty$
+\item $||x||_1 \leq \sqrt{n} ||x||_2$
+\item $||x||_2 \leq \sqrt{n} ||x||_\infty$
+\item $||x||_1 \leq n ||x||_\infty$
+\item $||h_{T_0}||_1 \leq \sqrt{s} ||h_{T_0}||_2$
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
