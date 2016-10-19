@@ -434,11 +434,109 @@ RIP makes use of $l_2$ norm of vectors
 \item $||h_{T_0}||_1 \leq \sqrt{s} ||h_{T_0}||_2$
 \end{itemize}
 
+\subsection*{10-19-2016}
 
+$y = \Phi x, \mathbb{R}^m = \mathbb{R}^{m \times n} \mathbb{R}^n$
 
+$s = 5, n = 10000, m = ?$
 
+$\Phi$ is 2S-RIP $\rightarrow$ 10-RIP
 
+$\exists \delta, 0 < \delta_{10} < 1$
 
+$(1-\delta_{10})||x'||_2^2 \leq ||\Phi x'||_2^2 \leq (1+\delta_{10})||x'||_2^2$ for all 10-sparse $x'$.
+
+$\Phi_{ij} \approx \mathcal{N}(0, \frac{1}{m})$
+
+$m \geq c * 5 * \log(\frac{10000}{5})$
+
+$m > 2s = 10$
+
+$x^* = argmin||x||_1, \Phi x = y$
+
+What conditions $x^* = x_0$
+
+$\forall h \in NULL(\Phi), ||h_{T_0}||_1 \leq \rho ||h_{T_0^C}||_1$
+
+Since $x^*$ is the optimal in (P1) $||h_{T_0^C}||_1 \leq ||h_{T_0}||_1$
+
+$h = 0$ or $x^* = x_0$ (exact recovery)
+
+$||h_{T_0}||_1 \leq \sqrt{S} ||h_{T_0}||_2$
+
+\vspace{1cm}
+Example
+
+$x_0 = [0 0 5 -1 0 0]$
+
+$T_0 = \{2, 4\}, (5,-1)$ from $x_0$
+
+$T_0^C = \{0, 1, 3, 5, 6 \}, (0,0,0,0,0)$ from $x_0$
+
+$x_0 + h = x^*$
+
+$h_{T_0} =   \{0 0 X 0 X 0 0\}$
+
+$h_{T_0^C} = \{X X 0 X 0 X X\}$
+
+We divide $T_0^C$ to sets $T_1, T_2, ...$
+
+$T_1 = $ location of the $s'$ biggest terms in $h_{T_0^C}$
+
+$T_2 = $ location of the next $s'$ terms in $h_{T_0^C}$
+
+$T_3 = $ ...
+
+$\sin(\phi) \Phi h = 0 \rightarrow \Phi (h_{T_0 \cup T_1} + h_{(T_0 \cup T_1)^C}) = 0$
+
+$\rightarrow \Phi h_{T_0 \cup T_1} = - \Sigma_{j \geq 2} \Phi h_{T_j}$
+
+$\rightarrow ||\Phi h_{T_0 \cup T_1}||_2 = ||\Sigma_{j \geq 2} \Phi h_{T_j}|| \leq ||\Sigma_{j \geq 2} \Phi h_{T_j}||_2$
+
+$h_{T_0 \cup T_1}$ has $S + S'$ non-zeros.  Invoke the RIP constraints for $S + S'$ sparsity level.
+
+$\sqrt{1 - \delta_{S+ S'}} ||h_{T_0 \cup T_1}||_2 \leq ||\Phi h_{T_0 \cup T_1}||_2$
+
+Also since each $h_{T_j}$ is $S'$ sparse.
+
+$||\Phi h_{T_j}||_2 \leq \sqrt{1 + \delta_{S'}} ||h_{T_j}||_2$
+
+$\Sigma_{j \geq 2} ||\Phi h_{T_j}||_2 \leq \sqrt{1 + \delta_{S'}} \Sigma_{j \geq 2}  ||h_{T_j}||_2$
+
+Therefore:
+
+$\sqrt{1 - \delta_{S+S'}}  ||h_{T_0 \cup T_1}||_2 \leq
+ \sqrt{1 + \delta_{S'}}  ||h_{T_j}||_2$
+
+For each $j \leq 2$, all of values in $h_{T_j}$ are less than ALL of the values in $h_{T_{j-1}}$
+
+$\Rightarrow$ magnitudes in $h_{T_j}$ are less than the average of those in $h_{T_{j-1}}$
+
+$||h_{T_{j}}||_\infty \leq \frac{1}{S'} ||h_{T_{j-1}}||_1$
+
+Therefore: $||h_{T_{j}}||_2 \leq \sqrt{S'} ||h_{T_{j}}||_\infty \leq \frac{1}{\sqrt{S'}} ||h_{T_{j-1}}||_1$
+
+$\Sigma_{j \geq 2}||h_{T_{j}}||_2 \leq \frac{1}{\sqrt{S'}} \Sigma_{j \geq 1} ||h_{T_{j}}||_1 = \frac{||h_{T_0^C}||_1}{\sqrt{S'}}$
+
+$||h_{T_0 \cup T_1}||_2 \leq \sqrt{\frac{1+ \delta_{S'}}{1 - \delta_{S+S'}}} \frac{||h_{T_0^C||_1}}{\sqrt{S'}}$
+
+$||h_{T_0}||_1 \leq \sqrt{S} ||h_{T_0}||_2 \leq \sqrt{S}||h_{T_0 \cup T_1}||_2$
+
+define $\rho = \sqrt{\frac{S(1+\delta_{S'}}{S(1-\delta_{S+S'}}}$
+
+$\sqrt{S}||h_{T_0 \cup T_1}||_2 < \rho ||h_{T_0^C}||_1$
+
+How do we make  $\rho < 1$ ? $S' = 2S$. then $\rho^2 = \frac{1}{2}\frac{1 + \delta_{2S}}{1 - \delta_{3S}} < 1$
+
+$1 + \delta_{2S} < 2 - 2\delta_{3S} \rightarrow \delta_{2S} + 2\delta_{3S} < 1$
+
+$\delta_{2S} + 2\delta_{3S} < 1$
+
+$\delta_{2S} < \delta_{3S}$
+
+$\rightarrow 3 \delta_{2S} < 1 \rightarrow \delta_{3S} < \frac{1}{3} \rightarrow h = 0$
+
+$y = \Phi x, \delta_{2S} < \sqrt{2} - 1$
 
 
 
