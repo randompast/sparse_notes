@@ -628,10 +628,69 @@ Stable Recovery: $l_2$ norm, $||x^* - x_0||_2 \leq C_\delta \frac{||x_0 - x_{0,S
 
 \subsection*{10-26-2016}
 
+If $\Phi$ obeys a 3S-RIP, $\exists \rho < 1$ such that
 
+$\forall h \in Null(\Phi), ||h_{T_0}||_1 \leq \rho ||h_{T_0^C}||_1, \forall T_0: |T_0| \leq S$  This says the elements are well balanced and you can't have a few elements with most of the energy.
 
+$\min ||x||_1, \Phi x = y$
 
+$||x^* - x_0||_1 \leq \frac{2(1+\rho)}{1-\rho}||x_0 - x_{0,S}||_1$
 
+Stable Recovery: (Meaning $x_0$ is not necessarily sparse) in $l_2$ norm, 
+
+$||h||_2 = ||x^* - x_0||_2$
+
+$||h||_2^2 = ||h_{T_0 \cup T_1}||_2^2 + ||h_{(T_0 \cup T_1)^C}||_2^2$
+
+We have previously seen that
+
+$||h_{T_0 \cup T_1}||_2^2 \leq \frac{\rho^2}{2S}||h_{T_0^C}||_2^2$
+
+The second term, we use the fact that $k^th$ largest value in $h_{T_0^C}$ obeys: 
+
+$|h_{T_0^C}|^{(k)} \leq \frac{1}{k} \sum_{j=1}^k |h_{T_0^C}|^{(j)} \leq \frac{||h_{T_0^C}||_1}{k}$
+
+$||h_{T_0 \cup T_1}||_2^2 = \sum\limits_{k=2S+1}^n (|h_{T_0^C}|^{(k)})^2 \leq \sum\limits_{k = 2S+1}^n \frac{||h_{T_0^C}||_1^2}{k^2} = ||h_{T_0^C}||_1^2 \sum\limits_{k=2S+1}^n \frac{1}{k^2	} \leq \frac{||h_{T_0^C}||_1^2}{2S}$
+
+$||h||_2^2 \leq \frac{\rho^2}{2S}||h_{T_0^C}||_1^2 + \frac{1}{2S}||h_{T_0^C}||_1^2 = \frac{1 + \rho^2}{2S}||h_{T_0^C}||_1^2 \leq \frac{2(1 + \rho^2)}{(1+\rho)^2} \frac{||x_0 - x_{0,S}||_1^2}{S} \Rightarrow$
+
+$||h||_2 \leq c \frac{||x_0 - x_{0,S}||_1}{\sqrt{S}}$
+
+$C = \frac{\sqrt{2(1+\rho^2)}}{1-\rho}$
+
+\subsubsection*{Noise!}
+
+$y = \Phi x + e$ where $e$ is the error or some noise.
+
+$||e||_2 \leq \mathcal{E}$
+
+Derive the results for the case that $x_0$ is sparse.  The robustness case (i.e., $x_0$ being generic follows like what we just saw).  Assuming $x_0$ is sparse, supported on $T_0$.  $\Phi_{T_0} = [|||]_{m \times x}, x_{T_0}$ be the s-vector consisting of the active components of $x_0$.
+
+$\Phi x_0 = \Phi_{T_0} x_{T_0} \rightarrow y = \Phi_{T_0} x_{T_0} + e$
+
+$m > s$, Least squares solution $x = argmin ||y - \Phi_{T_0} x||_2^2$
+
+$\Phi_{T_0}^t y = (\Phi_{T_0}^t \Phi_{T_0})x + \Phi_{T_0}^t e$
+
+$x = (\Phi_{T_0}^t \Phi_{T_0})^{-1} \Phi_{T_0}^t y + [?]e$
+
+$x_{oracle}^* = (\Phi_{T_0}^t \Phi_{T_0})^{-1}\Phi_{T_0}^t y$ (Pseudo-inverse)
+
+The error in $||x_{oracle}^* - x_0||_2 = ||(\Phi_{T_0}^t \Phi_{T_0})^{-1} \Phi_{T_0}^t e||$
+
+The noise vector is chosen to make the error maximal: $||x_{oracle}^* - x_0||_2 = \frac{1}{\lambda_{\min}(\Phi_{T_0}^t \Phi_{T_0})}||e||_2$
+
+If $\Phi$ obeys an S-RIP, then the error in the solution we get with the aid of the oracle is: $||x_{oracle}^* - x_0|| \leq \frac{1}{1 - \delta_S}||e||_2 \leq c  \mathcal{E}$
+
+Now without an oracle (we need the knowledge of $T_0$) what comes from our minimization:
+
+$x^* = argmin||x||_1 \rightarrow ||\Phi x - y|| \leq \mathcal{E}$
+
+Find x, such that $\Phi x$ is close to $y$.
+
+\url{http://statweb.stanford.edu/~candes/}
+
+\url{http://statweb.stanford.edu/~candes/l1magic/}
 
 
 
