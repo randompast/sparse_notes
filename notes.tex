@@ -144,7 +144,7 @@ What matrices have this RIP property?  Here's where to invoke the gold coin prob
 
 Next class, we can't build these $\Phi$ matrices, we don't have a deterministic algorithm to give you $\Phi$.  Instead if we generate $\Phi_{ij} ~ N(0, 1/m)$ (from some normal distribution, randomness is our friend here).
 
-\subsection*{9-30-2016}
+\subsection*{10-3-2016}
 The other day we learned about the Restricted Isometry Property (RIP). $(1 - \delta) ||x'||_2^2 \leq ||\Phi x||_2^2 \leq (1 + \delta) ||x'||_2^2$ for ALL 2s-sparse vectors $x' \in \mathbb{R}^n$.  Remember $y = \Phi x, x \in \mathbb{R}^n, y \in \mathbb{R}^m$.  Then we can say that we can recover any s-sparse x from y.
 
 We are now after solving the gold coin problem in a more general setting.  Holy grail: How small can m be (at least 2s)? $\Phi_{ij} ~ \mathcal{N}(0, 1/m)$  Then $\Phi$ will have 2S-RIP with high probability of $m > const*S*log(n/s)$.  Gold Coin problem: $s=1, n=7, m=3 ~ S*log(n/s)$. To show this, we need to show $||\Phi x|| \approx ||x||$ for all 2S-Sparse vectors.  Tiny example (drawing a mapping from 3D to 2D): $n = 3, m = 2, \phi : x \in X \rightarrow y \in Y$, $\Phi_{ij} ~ \mathcal{N}(0, 1/m), []_{2 \times 3}$, length of $y = ||\Phi x||$
@@ -364,7 +364,7 @@ $= ||x_0||_1 - ||h_{T_0}||_1 + ||h_{T_0^C}||_1$
 (2) tells us $||h_{T_0^C}||_1 \leq ||h_{T_0}||_1$
 
 
-\subsection*{10-5-2016}
+\subsection*{10-17-2016}
 
 When we can solve $y = \Phi x$ for sparse solutions.  It's a requirement on $\Phi$
 
@@ -693,10 +693,74 @@ Find x, such that $\Phi x$ is close to $y$.
 \url{http://statweb.stanford.edu/~candes/l1magic/}
 
 
+\subsection*{10-28-2016}
 
+$y = \Phi x + e, ||e||_2 \leq \epsilon$
 
+$||x_{oracle}^* - x_0|| \leq \frac{1}{1 - \delta_S}||e||_2 \leq c  \mathcal{E}$
 
+$x^* = argmin||x||_1 \rightarrow ||\Phi x - y||_2 \leq \mathcal{E}$
 
+$||x^* - x_0||_2 = ||h||_2$
+
+Two facts help us bound $||h||_2$
+
+\begin{enumerate}
+\item $||x^*||_1 \leq ||x_0||_1$
+
+$||\Phi h ||_2 \geq C_\delta ||h||_2$
+
+Not only h is not in $Null(\Phi)$, but also $\frac{||\Phi h||_2}{||h||_2}$ s unbounded
+
+\item $x_0$ is feasible, $||\Phi x_0 - y||_2 \leq \epsilon$ using the triangle inequality:
+
+$||\Phi h||_2 = ||\Phi (x^* - x_0)||_2 = ||\Phi x^* - y + y - \Phi x_0||_2$
+
+$\leq ||\Phi x^* - y|| + ||\Phi x_0 - y||_2  $
+
+$\leq 2 \epsilon$
+
+\end{enumerate}
+
+By combining (1) and (2) $C_\delta' ||h||_2 \leq 2 \epsilon$
+
+$||h||_2 \leq \frac{2}{C_\delta'} \epsilon$
+
+We need to verify: $||\Phi h||_2 \geq C_\delta' ||h||_2$
+
+$||\Phi h||_2 \geq ||\Phi h_{T_0 \cup T_1}||_2 - ||\Phi h_{(T_0 \cup T_1)^C}||_2$
+
+$ \geq ||\Phi h_{T_0 \cup T_1}||_2 - \sum\limits_{j \geq 2} ||\Phi h_{T_j}||_2$
+
+$ \geq \sqrt{1 - \delta_{S + S'}} ||h_{T_0 \cup T_1}||_2 - \sqrt{1 - \delta_{S + S'}}\sum\limits_{j \geq 2} ||h_{T_j}||_2$
+
+We had previously seen:
+
+$\sum\limits_{j \geq 2} ||h_{T_j}||_2 \leq \frac{||h_{T_0^C}||_1}{\sqrt{S'}} \leq \frac{||h_{T_0}||_1}{\sqrt{S'}} \leq \frac{\sqrt{S}||h_{T_0}||_1}{\sqrt{S'}}$
+
+Take $S' = 2S$
+
+$\sum\limits_{j \geq 2} ||h_{T_j}||_2 \leq \frac{1}{\sqrt{2}} ||h_{T_0}||_2 \leq \frac{1}{\sqrt{2}}||h_{T_0 \cup T_1}||_2$
+
+Thus:
+
+$||\Phi h||_2 \geq (\sqrt{1 - \delta_{3S}} - \sqrt{\frac{1 + \delta_{2S}}{2}}) ||h_{T_0 \cup T_1}||_2$
+
+Previously seen that:
+
+$||h_{(T_0 \cup T_1)^C}||_2 \leq \frac{\rho}{\sqrt{2S}}||h_{T_0^C}||_1 \leq \frac{\rho}{\sqrt{2}} ||h_{(T_0 \cup T_1)}||_2$
+
+$||h||_2^2 = ||h_{(T_0 \cup T_1)}||_2^2 + ||h_{(T_0 \cup T_1)^C}||_2^2 \leq (1 + \frac{\rho^2}{2})||h_{(T_0 \cup T_1)}||_2^2$
+
+$\Rightarrow ||h||_2 \leq \sqrt{1 + \frac{\rho^2}{2}}||h_{(T_0 \cup T_1)}||_2$
+
+We have:
+
+$||\Phi h||_2 \geq C_1 ||h_{(T_0 \cup T_1)}||_2 \geq \frac{C_1}{C_2}||h||_2 = C_\delta'||h||_2$
+
+If $\Phi$ obeys a 3S-RIP and $x_0$ is s-sparse the error in $l_1$ recovery is $~\epsilon$, $||x^* - x_0||_2 \leq C \epsilon$
+
+Stable Recovery in presence of noise: $x_0$ is arbitrary (i.e., not sparse), the recovery error obeys: $||x^* - x_0|| \leq C ( \epsilon + \frac{||x_0 - x_{0,S}||_1}{\sqrt{S}})$
 
 
 
