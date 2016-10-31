@@ -762,6 +762,91 @@ If $\Phi$ obeys a 3S-RIP and $x_0$ is s-sparse the error in $l_1$ recovery is $~
 
 Stable Recovery in presence of noise: $x_0$ is arbitrary (i.e., not sparse), the recovery error obeys: $||x^* - x_0|| \leq C ( \epsilon + \frac{||x_0 - x_{0,S}||_1}{\sqrt{S}})$
 
+\subsection*{10-31-2016}
+
+\subsubsection*{Reconstruction Algorithms}
+
+\begin{itemize}
+\item
+Greedy Algorithm, MP, OMP
+
+$\min_x ||x||_0, \Phi x = y$
+
+\item
+Convex Relaxation (Basis Pursuit)
+
+$\min_x ||x||_1, \Phi x = y$
+
+\item
+Noisy case for $l_1$ minimization, Basis Pursuit Denoising (BPDN)
+
+$\min_x ||x||_1, ||\Phi x - y||_2 \leq \mathcal{E}$
+
+For an appropriate Lagrange multiplier $\lambda \in \mathbb{R}$ these can be solved with the unconstrained formulation
+
+$\min_x \lambda ||x||_1 + \frac{1}{2} ||\Phi x - y||_2^2$
+
+$\min_{x \in \mathbb{R}^n} f(x)$
+
+\item
+Steepest Descent
+
+$x_0 =$ initial guess
+
+for $k = 0, 1, 2, ...$
+
+$S_k = -\nabla f(x_k)$
+
+Choose $\alpha_k$ to $\min_{\alpha_k \in \mathbb{R}} f(x_k + \alpha_k S_k)$
+
+$x_{k+1} = x_k + \alpha_k S_k$
+
+\item
+Newton's Method
+
+$x_0 =$ initial guess
+
+for $k = 0, 1, 2, ...$, fit a parabola
+
+Solve $H_f(x_k)S_k = -\nabla f(x_k)$
+
+Theory (not in practice): $S_k = -H_f^{-1}(x_k) \nabla f(x_k)$
+
+$x_{k+1} = x_k + S_k$
+
+
+$\nabla f(x), f'(x)$
+
+$H_f(x), f''(x)$
+
+$x_1$ is the next guess from the parabola (the minimum), this allows for the fitting of another parabola which leads us to find $x_2$ and so on.
+
+$\nabla f(x) = [\frac{\partial f}{\partial x_1}, ..., \frac{\partial f}{\partial x_k}]$ (vector)
+
+$H_f(x) = [[\frac{\partial^2 f}{\partial x_i \partial x_j}]]$ (matrix)
+
+\item
+Accelerated Gradient Descent
+
+\end{itemize}
+
+Iteratively Reweighted Least Squares
+
+$||x||_1$ is not differentiable, define a matrix
+
+$X = diag(|x|) = I * [|x_i|]$
+
+$||x||_1 = x^T X^{-1}  x = \sum\limits_{i = 1}^n \frac{x_i^2}{|x_i|} =  \sum |x_i|$
+
+The idea is to use the current guess, to generate $X_k$ and treat $||x||_1$ as a quadratic function in terms of x just for the $k^{th}$ step.
+
+Given $x_{k-1}$, $X_{k-1} = diag(|x_{k-1}|)$, to go to $x_k$, we solve:
+
+$\min ...$
+
+
+
+
 
 
 
